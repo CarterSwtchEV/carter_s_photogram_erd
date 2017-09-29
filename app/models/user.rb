@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   # Direct associations
 
+  has_many   :photos,
+             :dependent => :destroy
+
   has_many   :sender_requests,
              :class_name => "FollowRequest",
              :foreign_key => "sender_id",
@@ -10,6 +13,7 @@ class User < ApplicationRecord
              :dependent => :destroy
 
   has_many   :comments,
+             :foreign_key => "commenter_id",
              :dependent => :destroy
 
   has_many   :recipient_requests,

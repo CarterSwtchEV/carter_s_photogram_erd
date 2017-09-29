@@ -20,14 +20,14 @@
         <td>
           <% if follow_request.sender.present? %>
             <a href="/users/<%= follow_request.sender.id %>">
-              <%= follow_request.sender.email %>
+              <%= follow_request.sender.username %>
             </a>
           <% end %>
         </td>
         <td>
           <% if follow_request.recipient.present? %>
             <a href="/users/<%= follow_request.recipient.id %>">
-              <%= follow_request.recipient.email %>
+              <%= follow_request.recipient.username %>
             </a>
           <% end %>
         </td>
