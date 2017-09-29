@@ -48,8 +48,6 @@ class FollowRequestsController < ApplicationController
 
   def update
     @follow_request = FollowRequest.find(params[:id])
-
-    @follow_request.sender_id = params[:sender_id]
     @follow_request.recipient_id = params[:recipient_id]
     @follow_request.confirmed = params[:confirmed]
 
