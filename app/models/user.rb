@@ -1,6 +1,11 @@
 class User < ApplicationRecord
   # Direct associations
 
+  has_many   :recipient_requests,
+             :class_name => "FollowRequest",
+             :foreign_key => "recipient_id",
+             :dependent => :destroy
+
   # Indirect associations
 
   # Validations
