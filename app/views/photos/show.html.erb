@@ -6,7 +6,13 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
       <dt>User</dt>
-      <dd><%= @photo.user_id %></dd>
+      <dd>
+        <% if @photo.user_with_photos.present? %>
+          <a href="/users/<%= @photo.user_id %>">
+            <%= @photo.user_with_photos.username %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Caption</dt>
       <dd><%= @photo.caption %></dd>
@@ -27,12 +33,14 @@
       <a href="/photos" class="btn btn-primary">
         Back
       </a>
-      <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user == @photo.user_with_photos %>
+        <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -97,7 +105,7 @@
       <% @photo.comments.each do |comment| %>
         <li class="list-group-item">
           <a href="/comments/<%= comment.id %>">
-            <%= comment.user_id %>
+            <%= comment.commenter_id %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
             <a href="/comments/<%= comment.id %>" class="btn btn-primary">
@@ -118,20 +126,11 @@
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+      <!-- Label and input for commenter_id -->
+      <input type="hidden" name="commenter_id" value="<%= current_user.id %>">
 
       <!-- Label and input for photo_id -->
       <input type="hidden" name="photo_id" value="<%= @photo.id %>">
-
-      <!-- Label and input for commenter_id -->
-      <div class="form-group">
-        <label for="commenter_id" class="control-label">
-          Commenter
-        </label>
-
-        <input type="text" id="commenter_id" name="commenter_id" placeholder="Commenter" class="form-control" value="">
-      </div>
 
       <button class="btn btn-block btn-success">
         Create Comment
@@ -154,7 +153,7 @@
       <% @photo.users_who_likes_photos.each do |user| %>
         <li class="list-group-item">
           <a href="/users/<%= user.id %>">
-            <%= user.email %>
+            <%= user.username %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
             <a href="/users/<%= user.id %>" class="btn btn-primary">
@@ -185,7 +184,7 @@
       <% @photo.users_with_makes_comments.each do |user| %>
         <li class="list-group-item">
           <a href="/users/<%= user.id %>">
-            <%= user.email %>
+            <%= user.username %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
             <a href="/users/<%= user.id %>" class="btn btn-primary">
