@@ -4,6 +4,16 @@ class FollowRequestsController < ApplicationController
   def current_user_must_be_follow_request_user
     follow_request = FollowRequest.find(params[:id])
 
+    unless current_user == follow_request.sender
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
+  before_action :current_user_must_be_follow_request_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_follow_request_user
+    follow_request = FollowRequest.find(params[:id])
+
     unless current_user == follow_request.recipient
       redirect_to :back, :alert => "You are not authorized for that."
     end
