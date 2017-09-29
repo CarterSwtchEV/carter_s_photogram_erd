@@ -9,18 +9,6 @@
       <p class="lead">Narrow results:</p>
 
         <div class="form-group">
-  <%= f.label :user_id, "User" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :user_id_gteq, :class => "form-control", :placeholder => "User greater than or equal to" %>
-    </div>
-    <div class='col-md-6'>
-      <%= f.text_field :user_id_lteq, :class => "form-control", :placeholder => "User less than or equal to" %>
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
     <%= f.label :caption_cont, "Caption contains" %>
     <%= f.text_field :caption_cont, :class => "form-control", :placeholder => "Caption contains" %>
   </div>
@@ -66,6 +54,11 @@
       </script>
 
         <div class="form-group">
+      <%= f.label :user_with_photos_email_cont, "User email contains" %>
+      <%= f.text_field :user_with_photos_email_cont, :class => "form-control", :placeholder => "User email contains" %>
+    </div>
+
+<div class="form-group">
       <%= f.label :users_who_likes_photos_email_cont, "User email contains" %>
       <%= f.text_field :users_who_likes_photos_email_cont, :class => "form-control", :placeholder => "User email contains" %>
     </div>
@@ -107,14 +100,23 @@
 
       <% @photos.each do |photo| %>
       <tr>
-        <td><%= photo.user_id %></td>
+        <td>
+          <% if photo.user_with_photos.present? %>
+            <a href="/users/<%= photo.user_with_photos.id %>">
+              <%= photo.user_with_photos.email %>
+            </a>
+          <% end %>
+        </td>
         <td><%= photo.caption %></td>
         <td><img src='<%= photo.image %>' class='img-responsive'></td>
         <td><%= photo.location %></td>
         <td>
           <a href="/photos/<%= photo.id %>" class="btn btn-primary">Show</a>
-          <a href="/photos/<%= photo.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_photo/<%= photo.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == photo.user_with_photos %>
+            <a href="/photos/<%= photo.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_photo/<%= photo.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>
