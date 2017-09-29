@@ -1,7 +1,17 @@
 class PhotosController < ApplicationController
+  before_action :current_user_must_be_photo_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_photo_user
+    photo = Photo.find(params[:id])
+
+    unless current_user == photo.user_with_photos
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
   def index
     @q = Photo.ransack(params[:q])
-    @photos = @q.result(:distinct => true).includes(:likes, :comments, :users_who_likes_photos, :users_with_makes_comments).page(params[:page]).per(10)
+    @photos = @q.result(:distinct => true).includes(:user_with_photos, :likes, :comments, :users_who_likes_photos, :users_with_makes_comments).page(params[:page]).per(10)
     @location_hash = Gmaps4rails.build_markers(@photos.where.not(:location_latitude => nil)) do |photo, marker|
       marker.lat photo.location_latitude
       marker.lng photo.location_longitude
@@ -57,8 +67,6 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-
-    @photo.user_id = params[:user_id]
     @photo.caption = params[:caption]
     @photo.image = params[:image]
     @photo.location = params[:location]

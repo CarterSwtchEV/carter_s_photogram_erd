@@ -53,18 +53,6 @@
       <%= f.text_field :user_who_likes_photos_email_cont, :class => "form-control", :placeholder => "User email contains" %>
     </div>
 
-<div class="form-group">
-  <%= f.label :user_id, "Photo User" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :photo_with_likes_user_id_gteq, :class => "form-control", :placeholder => "Photo User greater than or equal to" %>
-    </div>
-    <div class='col-md-6'>
-      <%= f.text_field :photo_with_likes_user_id_lteq, :class => "form-control", :placeholder => "Photo User less than or equal to" %>
-    </div>
-  </div>
-</div>
-
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
       <a href="/likes" class="btn btn-default btn-block mb-1">Clear filters</a>
