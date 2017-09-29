@@ -17,8 +17,20 @@
 
       <% @comments.each do |comment| %>
       <tr>
-        <td><%= comment.user_with_makes_comments.email %></td>
-        <td><%= comment.photo_with_comments.user_id %></td>
+        <td>
+          <% if comment.user_with_makes_comments.present? %>
+            <a href="/users/<%= comment.user_with_makes_comments.id %>">
+              <%= comment.user_with_makes_comments.email %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if comment.photo_with_comments.present? %>
+            <a href="/photos/<%= comment.photo_with_comments.id %>">
+              <%= comment.photo_with_comments.user_id %>
+            </a>
+          <% end %>
+        </td>
         <td><%= comment.commenter_id %></td>
         <td>
           <a href="/comments/<%= comment.id %>" class="btn btn-primary">Show</a>

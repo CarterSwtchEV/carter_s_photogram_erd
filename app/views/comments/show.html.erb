@@ -6,10 +6,22 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
       <dt>User</dt>
-      <dd><%= @comment.user_id %></dd>
+      <dd>
+        <% if @comment.user_with_makes_comments.present? %>
+          <a href="/users/<%= @comment.user_id %>">
+            <%= @comment.user_with_makes_comments.email %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Photo</dt>
-      <dd><%= @comment.photo_id %></dd>
+      <dd>
+        <% if @comment.photo_with_comments.present? %>
+          <a href="/photos/<%= @comment.photo_id %>">
+            <%= @comment.photo_with_comments.user_id %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Commenter</dt>
       <dd><%= @comment.commenter_id %></dd>
