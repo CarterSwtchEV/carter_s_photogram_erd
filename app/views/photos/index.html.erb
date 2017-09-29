@@ -20,7 +20,7 @@
       <tr>
         <td><%= photo.user_id %></td>
         <td><%= photo.caption %></td>
-        <td><%= photo.image %></td>
+        <td><img src='<%= photo.image %>' class='img-responsive'></td>
         <td><%= photo.location %></td>
         <td>
           <a href="/photos/<%= photo.id %>" class="btn btn-primary">Show</a>
