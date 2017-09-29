@@ -22,8 +22,11 @@
         <td><%= follow_request.confirmed %></td>
         <td>
           <a href="/follow_requests/<%= follow_request.id %>" class="btn btn-primary">Show</a>
-          <a href="/follow_requests/<%= follow_request.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_follow_request/<%= follow_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == follow_request.recipient %>
+            <a href="/follow_requests/<%= follow_request.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_follow_request/<%= follow_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>
