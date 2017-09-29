@@ -27,7 +27,7 @@
           Photo
         </label>
 
-        <%= select_tag(:photo_id, options_from_collection_for_select(Photo.all, :id, :user_id, @like.photo_id), :class => "form-control") %>
+        <%= select_tag(:photo_id, options_from_collection_for_select(Photo.all, :id, :caption, @like.photo_id), :class => "form-control") %>
       </div>
 
       <button class="btn btn-success">

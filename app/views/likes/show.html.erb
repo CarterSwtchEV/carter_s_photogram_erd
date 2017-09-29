@@ -9,7 +9,7 @@
       <dd>
         <% if @like.user_who_likes_photos.present? %>
           <a href="/users/<%= @like.user_id %>">
-            <%= @like.user_who_likes_photos.email %>
+            <%= @like.user_who_likes_photos.username %>
           </a>
         <% end %>
       </dd>
@@ -18,7 +18,7 @@
       <dd>
         <% if @like.photo_with_likes.present? %>
           <a href="/photos/<%= @like.photo_id %>">
-            <%= @like.photo_with_likes.user_id %>
+            <%= @like.photo_with_likes.caption %>
           </a>
         <% end %>
       </dd>

@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   # Direct associations
 
-  has_many   :sender_requests,
+  has_many   :photos,
+             :dependent => :destroy
+
+  has_many   :sent_follow_requests,
              :class_name => "FollowRequest",
              :foreign_key => "sender_id",
              :dependent => :destroy
@@ -10,9 +13,10 @@ class User < ApplicationRecord
              :dependent => :destroy
 
   has_many   :comments,
+             :foreign_key => "commenter_id",
              :dependent => :destroy
 
-  has_many   :recipient_requests,
+  has_many   :received_follow_requests,
              :class_name => "FollowRequest",
              :foreign_key => "recipient_id",
              :dependent => :destroy
@@ -27,12 +31,12 @@ class User < ApplicationRecord
              :through => :likes,
              :source => :photo_with_likes
 
-  has_many   :followers,
-             :through => :recipient_requests,
+  has_many   :recipients,
+             :through => :received_follow_requests,
              :source => :sender
 
-  has_many   :following,
-             :through => :sender_requests,
+  has_many   :senders,
+             :through => :sent_follow_requests,
              :source => :recipient
 
   # Validations
