@@ -20,25 +20,22 @@
         <td>
           <% if follow_request.sender.present? %>
             <a href="/users/<%= follow_request.sender.id %>">
-              <%= follow_request.sender.email %>
+              <%= follow_request.sender.username %>
             </a>
           <% end %>
         </td>
         <td>
           <% if follow_request.recipient.present? %>
             <a href="/users/<%= follow_request.recipient.id %>">
-              <%= follow_request.recipient.email %>
+              <%= follow_request.recipient.username %>
             </a>
           <% end %>
         </td>
         <td><%= follow_request.confirmed %></td>
         <td>
           <a href="/follow_requests/<%= follow_request.id %>" class="btn btn-primary">Show</a>
-          
-          <% if current_user == follow_request.recipient %>
-            <a href="/follow_requests/<%= follow_request.id %>/edit" class="btn btn-warning">Edit</a>
-            <a href="/delete_follow_request/<%= follow_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-          <% end %>
+          <a href="/follow_requests/<%= follow_request.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_follow_request/<%= follow_request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
       </tr>
       <% end %>
