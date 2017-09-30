@@ -49,21 +49,14 @@
       </script>
 
         <div class="form-group">
-      <%= f.label :user_who_likes_photos_email_cont, "User email contains" %>
-      <%= f.text_field :user_who_likes_photos_email_cont, :class => "form-control", :placeholder => "User email contains" %>
+      <%= f.label :user_who_likes_photos_username_cont, "User username contains" %>
+      <%= f.text_field :user_who_likes_photos_username_cont, :class => "form-control", :placeholder => "User username contains" %>
     </div>
 
 <div class="form-group">
-  <%= f.label :user_id, "Photo User" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :photo_with_likes_user_id_gteq, :class => "form-control", :placeholder => "Photo User greater than or equal to" %>
+      <%= f.label :photo_with_likes_caption_cont, "Photo caption contains" %>
+      <%= f.text_field :photo_with_likes_caption_cont, :class => "form-control", :placeholder => "Photo caption contains" %>
     </div>
-    <div class='col-md-6'>
-      <%= f.text_field :photo_with_likes_user_id_lteq, :class => "form-control", :placeholder => "Photo User less than or equal to" %>
-    </div>
-  </div>
-</div>
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
@@ -89,14 +82,14 @@
         <td>
           <% if like.user_who_likes_photos.present? %>
             <a href="/users/<%= like.user_who_likes_photos.id %>">
-              <%= like.user_who_likes_photos.email %>
+              <%= like.user_who_likes_photos.username %>
             </a>
           <% end %>
         </td>
         <td>
           <% if like.photo_with_likes.present? %>
             <a href="/photos/<%= like.photo_with_likes.id %>">
-              <%= like.photo_with_likes.user_id %>
+              <%= like.photo_with_likes.caption %>
             </a>
           <% end %>
         </td>

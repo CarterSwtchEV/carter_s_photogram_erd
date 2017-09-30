@@ -29,6 +29,11 @@ class Photo < ApplicationRecord
   has_many   :likes,
              :dependent => :destroy
 
+  belongs_to :user_with_photos,
+             :class_name => "User",
+             :foreign_key => "user_id",
+             :counter_cache => true
+
   # Indirect associations
 
   has_many   :users_with_makes_comments,

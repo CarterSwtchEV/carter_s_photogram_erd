@@ -5,11 +5,11 @@
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
-      <dt>User</dt>
+      <dt>Commenter</dt>
       <dd>
         <% if @comment.user_with_makes_comments.present? %>
-          <a href="/users/<%= @comment.user_id %>">
-            <%= @comment.user_with_makes_comments.email %>
+          <a href="/users/<%= @comment.commenter_id %>">
+            <%= @comment.user_with_makes_comments.username %>
           </a>
         <% end %>
       </dd>
@@ -18,13 +18,10 @@
       <dd>
         <% if @comment.photo_with_comments.present? %>
           <a href="/photos/<%= @comment.photo_id %>">
-            <%= @comment.photo_with_comments.user_id %>
+            <%= @comment.photo_with_comments.caption %>
           </a>
         <% end %>
       </dd>
-
-      <dt>Commenter</dt>
-      <dd><%= @comment.commenter_id %></dd>
 
     </dl>
 
