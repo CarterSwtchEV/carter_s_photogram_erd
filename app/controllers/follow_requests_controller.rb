@@ -1,14 +1,4 @@
 class FollowRequestsController < ApplicationController
-  before_action :current_user_must_be_follow_request_user, :only => [:edit, :update, :destroy]
-
-  def current_user_must_be_follow_request_user
-    follow_request = FollowRequest.find(params[:id])
-
-    unless current_user == follow_request.recipient
-      redirect_to :back, :alert => "You are not authorized for that."
-    end
-  end
-
   def index
     @q = FollowRequest.ransack(params[:q])
     @follow_requests = @q.result(:distinct => true).includes(:recipient, :sender).page(params[:page]).per(10)

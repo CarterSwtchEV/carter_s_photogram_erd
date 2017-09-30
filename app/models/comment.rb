@@ -8,7 +8,7 @@ class Comment < ApplicationRecord
 
   belongs_to :user_with_makes_comments,
              :class_name => "User",
-             :foreign_key => "user_id",
+             :foreign_key => "commenter_id",
              :counter_cache => true
 
   # Indirect associations
